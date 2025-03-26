@@ -4,11 +4,11 @@ import time
 import argparse
 import traceback
 from os.path import exists
-import openai
+# import openai
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor
 from prompts.RAL_extractor import EXTRACTION_PROMPT, EXTRACTION_PROMPT_EACH
-
+from openai import AzureOpenAI
 
 def load_jsonl(file_path):
     _data = []
@@ -55,8 +55,12 @@ def get_answer(input_data: dict, retry=30):
     entry, save_path = input_data['data'], input_data['save_path']
     try:
         payload = get_payload(entry)
-        chat_completion = openai.ChatCompletion.create(model=payload['model'], temperature=0, messages=payload['messages'])
-        generation = chat_completion.choices[0].message.content
+        # chat_completion = openai.ChatCompletion.create(model=payload['model'], temperature=0, messages=payload['messages'])
+        # generation = chat_completion.choices[0].message.content
+
+        response = client.chat.completions.create(model=payload['model'], temperature=0, messages=payload['messages'])
+        # response = client.chat.completions.create(**payload)
+        generation = response.choices[0].message.content
 
         if generation == None or generation == "":
             get_answer(input_data, retry=retry-1)
@@ -132,8 +136,16 @@ if __name__ == "__main__":
     parser.add_argument("--api_base", type=str, default="")
     parser.add_argument("--language", type=str, default="zh")
     args = parser.parse_args()
-    openai.api_key = args.api_key
-    openai.api_base = args.api_base
+    # openai.api_key = args.api_key
+    # openai.api_base = args.api_base
     SYS_MSG = EXTRACTION_PROMPT
     SYS_MSG_EACH = EXTRACTION_PROMPT_EACH
+    
+    global client
+    client = AzureOpenAI(
+        azure_endpoint=args.api_base,
+        api_key=args.api_key,
+        api_version="2024-08-01-preview"
+    )
+    
     main_run(args)
