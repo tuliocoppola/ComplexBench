@@ -209,6 +209,27 @@ def aggregation(_data):
         "miltiple_relative_drop" : (total_2_acc / total_2_cnt - tree_2_acc / len(tree_2)) / (total_2_acc / total_2_cnt),
     }
 
+    # return {
+    #     "overall_drfr": count_true / (count_true + count_false) if (count_true + count_false) != 0 else 0,
+    #     "categorized_drfr": categories_acc,
+    #     "categorized_avg_drfr": categories_avg_acc,
+    #     "task_types_drfr": task_types_acc,
+    #     "nested_methods_drfr": nested_methods_acc,
+    #     "constraint_types_and_composition_types_acc": constraint_types_and_composition_types_acc,
+    #     "each_constraint_dimensions_and_composition_types_acc": each_acc,
+    #     "single_origin_test": total_1_acc / total_1_cnt if total_1_cnt != 0 else 0,
+    #     "single_coherent_test": tree_1_acc / len(tree_1) if len(tree_1) != 0 else 0,
+    #     "single_relative_drop": (
+    #         (total_1_acc / total_1_cnt - tree_1_acc / len(tree_1)) / (total_1_acc / total_1_cnt)
+    #         if total_1_cnt != 0 and len(tree_1) != 0 else 0
+    #     ),
+    #     "multiple_origin_test": total_2_acc / total_2_cnt if total_2_cnt != 0 else 0,
+    #     "multiple_coherent_test": tree_2_acc / len(tree_2) if len(tree_2) != 0 else 0,
+    #     "miltiple_relative_drop": (
+    #         (total_2_acc / total_2_cnt - tree_2_acc / len(tree_2)) / (total_2_acc / total_2_cnt)
+    #         if total_2_cnt != 0 and len(tree_2) != 0 else 0
+    #     ),
+    # }
 
 
 if __name__ == "__main__":

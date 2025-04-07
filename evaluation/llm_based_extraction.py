@@ -62,8 +62,8 @@ def get_answer(input_data: dict, retry=30):
         # response = client.chat.completions.create(**payload)
         generation = response.choices[0].message.content
 
-        if generation == None or generation == "":
-            get_answer(input_data, retry=retry-1)
+        if generation == None or generation.strip() == "":
+            return get_answer(input_data, retry=retry-1)
 
         entry['ass'] = generation
         entry['payload'] = payload
@@ -75,10 +75,11 @@ def get_answer(input_data: dict, retry=30):
             entry['ass'] = "None"
             entry['payload'] = payload
             save_jsonl(entry, save_path)
+            return
         print(f"retry:剩余{retry}次")
         print(e)
         print(traceback.format_exc())
-        get_answer(input_data, retry=retry)
+        return get_answer(input_data, retry=retry)
 
 
 def run_extraction(save_path, datas, num_pool):
