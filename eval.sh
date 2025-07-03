@@ -6,6 +6,11 @@ api_base=$5
 model_name=$6
 language=$7
 
+if ! command -v tr &> /dev/null; then
+    echo "Error: The 'tr' command is not available." >&2
+    exit 1
+fi
+
 output_string=$(echo "${output_dir}/${model_name//\//_}" | tr -s /)
 
 python3 evaluation/llm_based_extraction.py \
