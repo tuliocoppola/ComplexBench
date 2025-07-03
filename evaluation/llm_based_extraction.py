@@ -154,8 +154,8 @@ if __name__ == "__main__":
     parser.add_argument("--output_path", type=str, default="")
     parser.add_argument("--api_key", type=str, default="")
     parser.add_argument("--api_base", type=str, default="")
-    parser.add_argument("--language", type=str, default="en")
     parser.add_argument("--eval_model_name", type=str, default="Azure/gpt-4o")
+    parser.add_argument("--language", type=str, default="en")
     args = parser.parse_args()
     # openai.api_key = args.api_key
     # openai.api_base = args.api_base

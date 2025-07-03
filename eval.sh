@@ -13,7 +13,8 @@ python3 evaluation/llm_based_extraction.py \
     --output_path "${output_dir}/${model_name}_llm_extraction_results.jsonl" \
     --api_key $api_key \
     --api_base $api_base \
-    --language $language
+    --language $language \
+    --eval_model_name $model_name
 
 
 python3 evaluation/llm_based_evaluation.py \
@@ -22,7 +23,8 @@ python3 evaluation/llm_based_evaluation.py \
     --output_path "${output_dir}/${model_name}_llm_evaluation_results.jsonl" \
     --api_key $api_key \
     --api_base $api_base \
-    --language $language
+    --language $language \
+    --eval_model_name $model_name
 
 
 python3 evaluation/rule_based_evaluation.py \
